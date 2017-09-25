@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Add Shopping List Item</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <style>
+    .input-field input[type=text]:focus 
+    {
+      border-bottom: 1px solid #000;
+      box-shadow: 0 1px 0 0 #000;
+    }
+     </style>
+  </head>
+  <body>
+    <div class="container">
+      <form>
+        <div>
+          <label>Enter Item</label>
+          <input class="input-field" type="text" id="item" autofocus>
+        </div>
+        <button class="btn waves-effect waves-light blue lighten-1" type="submit">Add Item</button>
+      </form>
+    </div>
+
+    <script>
+      const electron = require('electron');
+      const {ipcRenderer} = electron;
+
+      const form = document.querySelector('form');
+      form.addEventListener('submit', submitForm);
+
+      function submitForm(e)
+      {
+        e.preventDefault();
+        const item = document.querySelector('#item').value;
+        ipcRenderer.send('item:add', item);
+      }
+    </script>
+  </body>
+</html>

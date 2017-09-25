@@ -1,0 +1,14 @@
+{
+  "name": "shoppinglistfix",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Noah Ainsworth",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^1.7.8"
+  }
+}

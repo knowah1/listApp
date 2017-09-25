@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>ShoppingList</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+  <nav>
+    <div class="nav-wrapper valign-wrapper blue lighten-1">
+      <a class="brand-logo center">MakeAList</a>
+      
+      
+    </div>
+  </nav>
+  
+  <div class="fixed-action-btn horizontal">
+    <a class="btn-floating btn-large red lighten-2" id="addButton">
+      <i class="large material-icons">linear_scale</i>
+    </a>
+    
+  </div>
+
+  <ul></ul>
+  
+  <script>
+    
+
+    const electron = require('electron');
+    const {ipcRenderer} = electron;
+    const ul = document.querySelector('ul');
+
+    // Add item
+    ipcRenderer.on('item:add', function(e, item)
+      {
+        ul.className = 'collection';
+        const li = document.createElement('li');
+        li.className = 'collection-item';
+        li.style = 'padding-bottom: 25px;';
+        const delButton = document.createElement('a');
+        delButton.onclick = removeItem;
+        delButton.className = 'btn waves-effect waves-light red lighten-2 right';
+        delButton.innerHTML = '<i class="material-icons" style="-ms-transform: rotate(45deg);    -webkit-transform: rotate(45deg); transform: rotate(45deg);">add</i>';
+        delButton.id = 'delButton';
+        const itemText = document.createTextNode(item);
+        li.appendChild(itemText);
+        li.appendChild(delButton);
+        ul.appendChild(li);
+      });
+
+    // Clear items
+    ipcRenderer.on('item:clear', function()
+      {
+        ul.innerHTML = '';
+        ul.className = '';
+      });
+
+    // Remove item
+    // if(ul.children.length !== 0)
+    // {
+    //   document.getElementById("delButton").addEventListener("click", removeItem);
+    // }
+
+    function removeItem(e)
+    {            
+      this.parentNode.remove();
+      if(ul.children.length == 0)
+      {
+        ul.className = '';
+      }
+    }
+    
+    
+    
+
+  </script>
+  
+  <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script> -->
+  
+
+</body>
+</html>
